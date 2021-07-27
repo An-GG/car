@@ -4,6 +4,7 @@
   "main": "main.js",
   "chromium-args": "--mixed-context",
   "devDependencies": {
+    "@types/node": "^11.15.54",
     "nwjs-types": "^1.0.0"
   }
 }
