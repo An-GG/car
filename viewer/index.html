@@ -7,7 +7,6 @@
             var path = './';
             var fs = require('fs');
             var exports = {};
-            console.log('B'); 
             var reloadWatcher=fs.watch(path, 
                 function(t, n) {
                     if (n.endsWith('.js')) {
