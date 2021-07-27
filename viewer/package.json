@@ -1,0 +1,9 @@
+{
+  "name": "viewer",
+  "version": "0.0.1",
+  "main": "main.js",
+  "chromium-args": "--mixed-context",
+  "devDependencies": {
+    "nwjs-types": "^1.0.0"
+  }
+}

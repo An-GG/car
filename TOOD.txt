@@ -1,0 +1,9 @@
+1. Make tooling to view ports (individual 8bit values)
+
+- Brake
+- Gas
+- Cruise Engage, Cruise Set, Cruise Disable
+- Steering Wheel Torque / Pos
+- Vehicle Speed
+
+2. Figure is it enough to write to steering wheel torque, brake, gas
