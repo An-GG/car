@@ -1,3 +1,5 @@
+let SerialPort = require('SerialPort');
+
 
 let local_ctx:CanvasRenderingContext2D;
 function main() {
@@ -6,6 +8,9 @@ function main() {
     local_ctx = context;
     onResize(context);
     window.addEventListener('resize', () => { onResize(context); });
+
+    
+    
 }
 
 let scaling = 2.0;

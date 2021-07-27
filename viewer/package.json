@@ -2,7 +2,6 @@
   "name": "viewer",
   "version": "0.0.1",
   "main": "main.js",
-  "chromium-args": "--mixed-context",
   "devDependencies": {
     "@types/node": "^11.15.54",
     "@types/nw.js": "^0.13.14",
