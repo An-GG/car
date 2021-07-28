@@ -6,6 +6,8 @@ cp.execFile('node', ['/Users/ankushgirotra/Documents/Projects/car/sp/index.js'],
   }
   console.log(stdout);
 });
+
+
 let local_ctx:CanvasRenderingContext2D;
 let local_win:Window;
 export function ActivateCanvas(win:Window) {
