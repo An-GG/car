@@ -1,23 +1,27 @@
-let SerialPort = require('SerialPort');
+const cp = require('child_process');
 
-
+cp.execFile('node', ['/Users/ankushgirotra/Documents/Projects/car/sp/index.js'], (error, stdout, stderr) => {
+  if (error) {
+    throw error;
+  }
+  console.log(stdout);
+});
 let local_ctx:CanvasRenderingContext2D;
-function main() {
-    let canvas = window.document.getElementById("canvas") as HTMLCanvasElement;
+let local_win:Window;
+export function ActivateCanvas(win:Window) {
+    let canvas = win.document.getElementById("canvas") as HTMLCanvasElement;
     let context = canvas.getContext('2d')!;
     local_ctx = context;
+    local_win = win;
     onResize(context);
-    window.addEventListener('resize', () => { onResize(context); });
-
-    
-    
+    win.addEventListener('resize', () => { onResize(context); });
 }
 
 let scaling = 2.0;
 function onResize(ctx:CanvasRenderingContext2D) {
     let canvas = ctx.canvas;
-    canvas.width = window.innerWidth * scaling;
-    canvas.height = window.innerHeight * scaling;
+    canvas.width = local_win.innerWidth * scaling;
+    canvas.height = local_win.innerHeight * scaling;
     ctx.scale(scaling, scaling);
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     draw(ctx);
@@ -54,4 +58,3 @@ export function redraw() {
     draw(local_ctx);
 }
 
-main();
