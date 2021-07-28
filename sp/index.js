@@ -1,5 +1,6 @@
 const SerialPort = require("serialport");
 
+let counter = 0;
 async function main() {
     let l = await SerialPort.list();
     let path = "";
@@ -14,7 +15,10 @@ async function main() {
     } });
 
     s.on('readable', ()=>{
+        counter++;
+        console.log(counter);
         console.log(s.read().toString());
+
     })
 
 
@@ -47,4 +51,4 @@ async function main3() {
     })
 }
 
-main3();
+main();

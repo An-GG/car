@@ -1,12 +1,3 @@
-const cp = require('child_process');
-
-cp.execFile('node', ['/Users/ankushgirotra/Documents/Projects/car/sp/index.js'], (error, stdout, stderr) => {
-  if (error) {
-    throw error;
-  }
-  console.log(stdout);
-});
-
 
 let local_ctx:CanvasRenderingContext2D;
 let local_win:Window;
