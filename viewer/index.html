@@ -12,15 +12,20 @@
             var reloadWatcher=fs.watch(path, 
                 function(t, n) {
                     if (n.endsWith('.js')) {
+                        if (window['index_module']) {
+                            window['index_module'].deinit();                 
+                        }
                         location.reload();
                         reloadWatcher.close();
                     }
                 }
             );
+
+
         </script>
         <canvas id="canvas" style="display:block; background:black; margin:0; padding:0; border:none; width:100vw; height:100vh;"></canvas>
         <script>
-            require('./index.js')
+            window['index_module'] = require('./index.js')
         </script>
     </body>
 </html>
