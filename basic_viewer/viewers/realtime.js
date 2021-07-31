@@ -4,21 +4,28 @@ const fs = require('fs');
 let framesByID = {
 }
 
-const targetFPS = 30;
-const targetPeriodMS = 1000 / targetFPS;
-
 let c_time = (new Date()).toISOString();
 let capturefile_path = 'captures/'+c_time+'.txt'
 fs.writeFileSync(capturefile_path, "");
 
 const rows = process.stdout.rows;
 console.clear();
-sw.main((l) => {
+
+const targetFPS = 24;
+const period = (73.307 / 35217);
+let last_t = (new Date()).getTime();
+
+sw.testing(period, (l) => {
 	try {
 		let id = parseInt(l.match(/\[.+\]/)[0].match(/\w+/)[0], 16);
-		fs.appendFileSync(capturefile_path, l + '\n');
+//		fs.appendFileSync(capturefile_path, l + '\n');
 		framesByID[id] = parseLine(l);
-		draw();
+
+        let new_t = (new Date()).getTime();
+        if (new_t - last_t >= (1000 / targetFPS)) {
+            last_t = new_t;
+            draw();
+        }
 	} catch (e) {
 	}
 });
@@ -37,16 +44,19 @@ function draw() {
 	let col_width = 50;
 
 	let lines_str = [];
+
+    let mostrecenttime = "";
 	for (let id in framesByID) {
 		let line = '';
 		let line_n = n % rows;
 		let col_n = (n - (n % rows)) / rows;
-		line += id.toString().padStart(4) + '        ';
+		line += id.toString().padEnd(10) + '  ';
+        mostrecenttime = framesByID[id].time;
 		for (let h of framesByID[id].hex_bytes) {
-			line += '  ';
+			line += ' ';
 			line += h.padStart(2, 0);
 		}
-		line = line.padEnd(50);
+		line = line.padEnd(col_width);
 		n++;
 		if (col_n == 0) {
 			lines_str.push(line);
@@ -54,7 +64,7 @@ function draw() {
 			lines_str[line_n] += line;
 		}
 	}
-
+    lines_str[rows - 1] += mostrecenttime.toString().padStart(col_width);
 	let out = '';
 	n = 0;
 	for (let l of lines_str) { 

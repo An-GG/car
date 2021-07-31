@@ -1,7 +1,7 @@
 const SerialPort = require("serialport");
 const fs = require('fs');
 
-const BAUD_RATE = 115200 * 4;
+const BAUD_RATE = 115200;
 async function main(callback) {
     let l = await SerialPort.list();
     let path = '';
@@ -30,7 +30,7 @@ exports.main = main;
 
 let lineN = 0;
 async function testing(seconds, callback) {
-	let lines = fs.readFileSync('sample_input.txt').toString().split('\n');
+	let lines = fs.readFileSync('captures/test_filtered2.txt').toString().split('\n');
 	let len = lines.length;
 	setInterval(()=>{
 		callback(lines[lineN]);

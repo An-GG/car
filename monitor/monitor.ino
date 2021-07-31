@@ -47,7 +47,7 @@ mcp2515_can CAN(SPI_CS_PIN); // Set CS pin
 #endif
 
 void setup() {
-    SERIAL_PORT_MONITOR.begin(460800);
+    SERIAL_PORT_MONITOR.begin(115200);
     while (!SERIAL_PORT_MONITOR) {}
 
     #if MAX_DATA_SIZE > 8
