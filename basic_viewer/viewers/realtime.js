@@ -1,4 +1,5 @@
-const sw = require('./serial_worker.js');
+const sw = require('../serial_worker.js');
+const fs = require('fs');
 
 let framesByID = {
 }
@@ -6,18 +7,18 @@ let framesByID = {
 const targetFPS = 30;
 const targetPeriodMS = 1000 / targetFPS;
 
-let lastT = (new Date()).getTime();
+let c_time = (new Date()).toISOString();
+let capturefile_path = 'captures/'+c_time+'.txt'
+fs.writeFileSync(capturefile_path, "");
+
 const rows = process.stdout.rows;
 console.clear();
-sw.testing(0.003, (l) => {
+sw.main((l) => {
 	try {
 		let id = parseInt(l.match(/\[.+\]/)[0].match(/\w+/)[0], 16);
+		fs.appendFileSync(capturefile_path, l + '\n');
 		framesByID[id] = parseLine(l);
-	//	let t = (new Date()).getTime();
-	//	if (t - lastT >= targetPeriodMS) {
-	//		lastT = t;
-			draw();
-	//	}
+		draw();
 	} catch (e) {
 	}
 });

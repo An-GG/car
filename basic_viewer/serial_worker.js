@@ -1,7 +1,7 @@
 const SerialPort = require("serialport");
 const fs = require('fs');
 
-const BAUD_RATE = 115200;
+const BAUD_RATE = 115200 * 4;
 async function main(callback) {
     let l = await SerialPort.list();
     let path = '';
@@ -39,3 +39,7 @@ async function testing(seconds, callback) {
 	}, seconds * 1000);
 }
 exports.testing = testing;
+
+if (process.argv.length > 2) {
+	main(console.log);
+}
