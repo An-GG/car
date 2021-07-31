@@ -23,10 +23,10 @@ function onResize(ctx:CanvasRenderingContext2D) {
 let usr_draw_func: (c:CanvasRenderingContext2D)=>any = (() => {})
 function draw(ctx:CanvasRenderingContext2D) {
     let s = ctxSize(ctx);
-    ctx.fillStyle = "white";
-    ctx.fillRect(0,0,s.w,s.h);
-    ctx.strokeStyle = "black";
     ctx.fillStyle = "black";
+    ctx.fillRect(0,0,s.w,s.h);
+    ctx.strokeStyle = "white";
+    ctx.fillStyle = "white";
 
     usr_draw_func(ctx);
 }
