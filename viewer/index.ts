@@ -6,6 +6,7 @@ import { CANFrame, SharedData } from './types';
 import { DataGrid } from './grid';
 
 export let SHARED:SharedData = {
+    fps: 25,
     can_frames: [],
     methods: {
         save_frames: save_frames,
@@ -13,28 +14,36 @@ export let SHARED:SharedData = {
     }
 }
 
+let drawer:DataGrid
 export function init() {
+
+    nw.Window.open('player.html');
     cv.ActivateCanvas(window);
-    cv.setScaling(4);
+    drawer = new DataGrid(cv.local_ctx, SHARED.can_frames);
     serialInit(true);
     cv.onDraw(draw);
     (window as any)['SHARED'] = SHARED;
+    SHARED.frame_timer_n = setInterval(cv.redraw, 1000 * (1 / SHARED.fps));
+
 }
 
 
 export function deinit() {
     SHARED.serial_worker?.kill();        
-    if (typeof SHARED.serial_virtual_n == 'number') {
+    if (SHARED.serial_virtual_n != undefined) {
         clearInterval(SHARED.serial_virtual_n);
+    }
+    if (SHARED.frame_timer_n != undefined) {
+        clearInterval(SHARED.frame_timer_n);
     }
     SHARED.serial_worker = undefined;
     SHARED.serial_virtual_n = undefined;
+    SHARED.frame_timer_n = undefined;
 }
 
 
 function draw(c:CanvasRenderingContext2D) {
-    let g = new DataGrid(c, SHARED.can_frames);    
-    g.draw();
+    drawer.draw();
 }
     
 function save_frames() {
@@ -85,7 +94,6 @@ function serialInit(virtual?:true) {
     }
 }
 
-
 // Sample Data Line
 // 0017.725 RX: [000003F9](00) 55 3C 56 01 00 00 00 EC
 function handleData(line:string) {
@@ -93,7 +101,6 @@ function handleData(line:string) {
     try {
         let frame = parseLine(line);
         SHARED.can_frames.push(frame);
-        cv.redraw();
     } catch(err) {
         console.log("Could not parse line:");
         console.log(err);
@@ -137,5 +144,4 @@ function parseLine(line:string): CANFrame {
 
 
 // INIT
-
 init();

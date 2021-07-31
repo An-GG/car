@@ -1,6 +1,6 @@
 
-let local_ctx:CanvasRenderingContext2D;
-let local_win:Window;
+export let local_ctx:CanvasRenderingContext2D;
+export let local_win:Window;
 export function ActivateCanvas(win:Window) {
     let canvas = win.document.getElementById("canvas") as HTMLCanvasElement;
     let context = canvas.getContext('2d')!;
@@ -10,7 +10,7 @@ export function ActivateCanvas(win:Window) {
     win.addEventListener('resize', () => { onResize(context); });
 }
 
-let scaling = 2.0;
+let scaling = 1.0;
 function onResize(ctx:CanvasRenderingContext2D) {
     let canvas = ctx.canvas;
     canvas.width = local_win.innerWidth * scaling;

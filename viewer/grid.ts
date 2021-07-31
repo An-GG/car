@@ -34,11 +34,11 @@ export class DataGrid {
         let rowN = 0;
         for (let id of ids) {
             let h = rowH * rowN;
-            ctx.lineWidth = 0.5;
+            ctx.lineWidth = 1;
             ctx.fillStyle = 'white';
             ctx.moveTo(0, h);
             ctx.lineTo(c_w, h);
-            ctx.fillText(id, 0, h + 15);
+            //ctx.fillText(id, 0, h + 15);
             ctx.stroke();
 
             let lastFrame = framesByID[id][framesByID[id].length - 1];
@@ -51,8 +51,8 @@ export class DataGrid {
                 ctx.fillStyle = '#' + b16 + b16 + b16;
                 ctx.fillRect(xoffset + w, h, colW, rowH);
 
-                ctx.fillStyle = '#990000';
-                ctx.fillText(b16.toUpperCase(), xoffset + w + 3, h + 15);
+ //               ctx.fillStyle = '#990000';
+//                ctx.fillText(b16.toUpperCase(), xoffset + w + 3, h + 15);
                 colN++;
             }
             rowN++;
